@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f2f0">
+  <title>INN BI proposal · Asesor de móviles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<header class="navbar">
+    <div class="nav-inner">
+      <a class="wordmark" href="/">INN BI <span>proposal</span></a>
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="/">Home</a>
+        <a class="active" href="/proyecto.html">Sobre el proyecto</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="nav-cta" href="/#chat-panel">Consultar <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+<main>
+<section class="shell section project-section" id="proyecto">
+      <div class="section-heading"><div><div class="section-kicker">Sobre el proyecto</div><h2>Un asesor transparente, con la fuente a la vista</h2><p>INN BI proposal conecta una interfaz de consulta con Codex y un catálogo de equipos móviles. Esta sección documenta la procedencia, el alcance y la estructura de los datos.</p></div></div>
+      <div class="project-overview">
+        <p>El agente usa las instrucciones de este proyecto y consulta el CSV local antes de responder preguntas factuales. Puede localizar equipos, ordenar criterios de comparación y explicar qué filas y campos respaldan una respuesta. La tabla de Home permite revisar esos mismos valores y descargar el archivo original.</p>
+        <p>La colección incluye teléfonos y algunos dispositivos móviles de otras formas, con variantes de almacenamiento o modelo representadas en registros separados. Los precios están expresados como importes de lanzamiento por mercado; no constituyen precios de venta actuales.</p>
+        <div class="project-source"><span>Fuente consultada:</span><strong>Mobile Phones Dataset · Kaggle · cuenta <code>ranaghulamnabi</code></strong><a href="https://www.kaggle.com/datasets/ranaghulamnabi/mobile-phones-dataset" target="_blank" rel="noopener noreferrer">Abrir ficha de Kaggle ↗</a></div>
+      </div>
+      <div class="project-stats" aria-label="Resumen del dataset">
+        <div class="project-stat"><span>Registros del archivo</span><b id="project-rows">—</b></div>
+        <div class="project-stat"><span>Columnas</span><b id="project-columns">15</b></div>
+        <div class="project-stat"><span>Marcas distintas</span><b id="project-brands">—</b></div>
+        <div class="project-stat"><span>Años registrados</span><b id="project-years">—</b></div>
+        <div class="project-stat"><span>Precios por mercado</span><b>5 monedas</b></div>
+      </div>
+
+      <div class="process-timeline">
+        <article class="process-card"><span class="num">01 / CONSULTA CON EVIDENCIA</span><h3>Busca a partir de tus criterios</h3><p>Puedes preguntar por marca, variante, RAM, cámaras, procesador, batería, pantalla, año o precio de lanzamiento. El agente consulta el archivo incluido en el proyecto y menciona los modelos y valores relevantes para que puedas encontrarlos en la tabla.</p></article>
+        <article class="process-card"><span class="num">02 / COMPARACIÓN CON CONTEXTO</span><h3>Compara lo que sí está medido</h3><p>Codex puede comparar varios modelos por una o más columnas y explicar el criterio usado. Mantiene las monedas separadas, conserva las unidades del CSV y señala cuando un campo tiene formatos mixtos o varias medidas dentro de una celda.</p></article>
+        <article class="process-card"><span class="num">03 / FUENTE Y ACTUALIDAD</span><h3>Verifica antes de decidir</h3><p>La tabla muestra la copia local del archivo que recibió el servidor. Los importes son precios de lanzamiento y las especificaciones reflejan lo que dice esa fuente; no se deben interpretar como inventario, precios vigentes ni garantía del fabricante.</p></article>
+        <article class="process-card"><span class="num">04 / LÍMITES CLAROS</span><h3>Reconoce la información ausente</h3><p>El dataset no aporta reseñas, duración real de batería, disponibilidad, sistema operativo, soporte de actualizaciones ni mediciones independientes. Si preguntas por un dato que no aparece en sus columnas, el agente debe decir que no puede confirmarlo desde esta fuente.</p></article>
+      </div>
+
+      <div class="source-detail"><strong>Cómo leer la tabla:</strong> las columnas de medidas y precios aparecen como texto formateado en el CSV. Algunas cifras llevan separadores de miles; cámaras y pantallas plegables pueden incluir más de una medida por fila. Al filtrar o calcular, conviene revisar la unidad y el formato exacto de cada registro.</div>
+      <div class="source-detail"><strong>Alcance de la fuente:</strong> el enlace de Kaggle lleva a la ficha original; el agente responde desde la copia local incluida aquí. Si la ficha cambia, este proyecto no actualiza automáticamente el CSV.</div>
+
+      <h3 class="schema-title">Diccionario de datos</h3>
+      <p class="schema-caption">Tipo describe el contenido lógico; el CSV puede guardar medidas cuantitativas como texto con unidades.</p>
+      <div class="schema-table-wrap"><table class="schema-table">
+        <thead><tr><th>Columna del CSV</th><th>Tipo de dato</th><th>Medida / formato</th><th>Descripción general</th></tr></thead>
+        <tbody>
+          <tr><td>Company Name</td><td>Categórico · texto</td><td>Sin unidad</td><td>Nombre de la compañía o marca asociada al registro.</td></tr>
+          <tr><td>Model Name</td><td>Identificador · texto</td><td>Nombre / variante</td><td>Modelo del equipo; puede incluir capacidad de almacenamiento u otra variante en el nombre.</td></tr>
+          <tr><td>Mobile Weight</td><td>Cuantitativo continuo · texto con número</td><td>Gramos (g)</td><td>Peso del equipo. El valor suele incluir el sufijo <code>g</code>.</td></tr>
+          <tr><td>RAM</td><td>Cuantitativo entero · texto con número</td><td>Gigabytes (GB)</td><td>Memoria RAM reportada, normalmente con el sufijo <code>GB</code>.</td></tr>
+          <tr><td>Front Camera</td><td>Cuantitativo · texto con medida</td><td>Megapíxeles (MP)</td><td>Resolución indicada para la cámara frontal.</td></tr>
+          <tr><td>Back Camera</td><td>Compuesto · texto con medidas</td><td>Megapíxeles (MP) por módulo</td><td>Resoluciones de la cámara trasera; una celda puede listar varios módulos separados por <code>+</code>.</td></tr>
+          <tr><td>Processor</td><td>Categórico · texto</td><td>Nombre de plataforma</td><td>Nombre del procesador informado; no incluye una puntuación de rendimiento comparable.</td></tr>
+          <tr><td>Battery Capacity</td><td>Cuantitativo entero · texto con número</td><td>Miliamperios-hora (mAh)</td><td>Capacidad declarada. La puntuación de miles puede variar, por ejemplo <code>5000mAh</code> o <code>5,000mAh</code>.</td></tr>
+          <tr><td>Screen Size</td><td>Cuantitativo decimal · texto con medida</td><td>Pulgadas (inches)</td><td>Tamaño de pantalla. En algunos equipos plegables se pueden listar medidas interna y externa.</td></tr>
+          <tr><td>Launched Price (Pakistan)</td><td>Monetario · texto con número</td><td>Rupia pakistaní (PKR)</td><td>Precio de lanzamiento indicado para Pakistán.</td></tr>
+          <tr><td>Launched Price (India)</td><td>Monetario · texto con número</td><td>Rupia india (INR)</td><td>Precio de lanzamiento indicado para India.</td></tr>
+          <tr><td>Launched Price (China)</td><td>Monetario · texto con número</td><td>Yuan chino (CNY)</td><td>Precio de lanzamiento indicado para China.</td></tr>
+          <tr><td>Launched Price (USA)</td><td>Monetario · texto con número</td><td>Dólar estadounidense (USD)</td><td>Precio de lanzamiento indicado para Estados Unidos.</td></tr>
+          <tr><td>Launched Price (Dubai)</td><td>Monetario · texto con número</td><td>Dirham de EAU (AED)</td><td>Precio de lanzamiento indicado para Dubái.</td></tr>
+          <tr><td>Launched Year</td><td>Temporal · entero</td><td>Año calendario</td><td>Año de lanzamiento registrado como número entero.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="schema-title">Preguntas para empezar</h3>
+      <div class="examples">
+        <button class="example" data-question="Compara los modelos iPhone 16 del catálogo por precio de lanzamiento en Estados Unidos."><span>COMPARAR</span>Modelos iPhone 16 por precio en Estados Unidos</button>
+        <button class="example" data-question="¿Qué modelos del dataset tienen una batería de 5,000 mAh o más? Indica la capacidad exacta."><span>FILTRAR</span>Equipos con batería de 5,000 mAh o más</button>
+        <button class="example" data-question="Busca opciones con 8GB de RAM y pantalla de más de 6.5 inches. Cita los modelos y valores del CSV."><span>ENCONTRAR</span>8 GB de RAM y pantalla mayor a 6.5 pulgadas</button>
+      </div>
+    </section>
+</main>
+<footer class="shell footer"><span class="footer-brand">INN BI proposal · Asesor de móviles</span><span>Dataset: Mobiles Dataset (2025).csv · Precios de lanzamiento según el archivo.</span></footer>
+<script>
+fetch('/api/data').then(r=>r.json()).then(data=>{
+  const brands=new Set(data.rows.map(r=>r['Company Name']).filter(Boolean));
+  const years=data.rows.map(r=>Number.parseInt(r['Launched Year'],10)).filter(Number.isFinite);
+  document.getElementById('project-rows').textContent=data.count.toLocaleString('es');
+  document.getElementById('project-columns').textContent=data.columns.length.toLocaleString('es');
+  document.getElementById('project-brands').textContent=brands.size.toLocaleString('es');
+  document.getElementById('project-years').textContent=years.length?`${Math.min(...years)}-${Math.max(...years)}`:'-';
+});
+ document.querySelectorAll('.example').forEach(button=>button.addEventListener('click',()=>{location.href='/?ask='+encodeURIComponent(button.dataset.question||button.textContent.trim())}));
+</script>
+</body>
+</html>

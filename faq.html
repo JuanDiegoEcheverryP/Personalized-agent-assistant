@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f2f0">
+  <title>INN BI proposal · Asesor de móviles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<header class="navbar">
+    <div class="nav-inner">
+      <a class="wordmark" href="/">INN BI <span>proposal</span></a>
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="/">Home</a>
+        <a href="/proyecto.html">Sobre el proyecto</a>
+        <a class="active" href="/faq.html">FAQ</a>
+        <a class="nav-cta" href="/#chat-panel">Consultar <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+<main>
+<section class="shell section faq-section" id="faq">
+      <div class="section-heading"><div><div class="section-kicker">Preguntas frecuentes</div><h2>Lo que conviene saber</h2><p>Alcance, fuente de datos y uso del asesor.</p></div></div>
+      <div class="faq-list">
+        <details><summary>¿Cuál es la fuente del archivo y dónde puedo consultar su ficha?</summary><p>El proyecto registra como origen la ficha de <a href="https://www.kaggle.com/datasets/ranaghulamnabi/mobile-phones-dataset" target="_blank" rel="noopener noreferrer">Mobile Phones Dataset en Kaggle</a> (cuenta <code>ranaghulamnabi</code>). La copia usada aquí se llama <code>Mobiles Dataset (2025).csv</code>. Consulta la ficha para revisar sus metadatos y condiciones de reutilización.</p></details>
+        <details><summary>¿Qué representa una fila del dataset?</summary><p>Una fila representa un registro de modelo o variante tal como está listado en el archivo. Distintas capacidades de almacenamiento pueden aparecer en filas separadas; por eso no equivale necesariamente a un modelo comercial único.</p></details>
+        <details><summary>¿Qué tipos de campos contiene?</summary><p>Incluye identificadores de marca/modelo, medidas de peso y pantalla, memoria, resoluciones de cámara, procesador, capacidad de batería, precios de lanzamiento por cinco mercados y año. El diccionario de datos de la sección Sobre el proyecto describe tipo lógico, unidad y uso de cada columna.</p></details>
+        <details><summary>¿De dónde salen las respuestas?</summary><p>El asesor consulta <code>Mobiles Dataset (2025).csv</code>, incluido en este proyecto. La tabla de Home presenta esos mismos registros para que puedas contrastar la respuesta.</p></details>
+        <details><summary>¿Los precios son los precios actuales?</summary><p>No. Las columnas contienen precios de lanzamiento en las monedas y mercados indicados. No representan necesariamente precios vigentes ni disponibilidad comercial.</p></details>
+        <details><summary>¿Puedo preguntar por una característica que no aparece en la tabla?</summary><p>Sí. Si el dataset no contiene ese dato —por ejemplo, una duración de batería en horas— el agente debe indicarlo en vez de inventar una respuesta.</p></details>
+        <details><summary>¿Qué ocurre con las preguntas que envío?</summary><p>El navegador las envía al servidor local y este las procesa mediante tu sesión local de Codex. El MVP no guarda conversaciones al cerrar o recargar la página. Las solicitudes de inferencia siguen el tratamiento y límites asociados a tu cuenta de Codex.</p></details>
+        <details><summary>¿Pueden usarlo otros equipos o acceder por Internet?</summary><p>Esta versión está enlazada a <code>127.0.0.1</code> y solo funciona en la máquina donde corre <code>server.py</code>. Para otros equipos se necesitaría una versión alojada y un mecanismo de acceso adecuado.</p></details>
+        <details><summary>¿Cómo descargo el catálogo completo?</summary><p>Usa el botón “Descargar dataset” en Home. El enlace entrega la copia local del CSV sin modificarla.</p></details>
+      </div>
+    </section>
+</main>
+<footer class="shell footer"><span class="footer-brand">INN BI proposal · Asesor de móviles</span><span>Dataset: Mobiles Dataset (2025).csv · Precios de lanzamiento según el archivo.</span></footer>
+
+</body>
+</html>

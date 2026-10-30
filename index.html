@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f2f0">
+  <title>INN BI proposal · Asesor de móviles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <a class="wordmark" href="/">INN BI <span>proposal</span></a>
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a class="active" href="/">Home</a>
+        <a href="/proyecto.html">Sobre el proyecto</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="nav-cta" href="/#chat-panel">Consultar <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="shell" id="home">
+      <div class="hero">
+        <div class="hero-card">
+          <div class="hero-copy">
+            <div class="hero-tag">Inteligencia para elegir mejor</div>
+            <h1>Tu próxima decisión móvil, con datos a la vista.</h1>
+            <p>Consulta el catálogo con Codex, compara especificaciones y revisa la fuente original en la misma página.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="#chat-panel">Preguntar al agente <span aria-hidden="true">↓</span></a>
+              <a class="button secondary" href="/api/download" download>Descargar dataset <span aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+          <img class="hero-art" src="/assets/robot-mascot.png" alt="Mascota robot sosteniendo un teléfono mientras lo carga">
+        </div>
+      </div>
+
+      <section class="section" aria-labelledby="home-title">
+        <div class="section-heading">
+          <div><div class="section-kicker">Workspace · Catálogo conectado</div><h2 id="home-title">Explora y pregunta</h2><p>El asesor y la tabla usan el mismo archivo de datos para que puedas contrastar cada respuesta.</p></div>
+          <div class="section-note" id="catalog-summary">Cargando catálogo…</div>
+        </div>
+        <div class="status-line" id="status-line">Conectando con server.py…</div>
+        <div class="work-grid">
+          <section class="card chat-card" id="chat-panel" aria-label="Chat con el asesor de móviles">
+            <div class="card-head"><div class="agent-icon">✳</div><div><div class="head-title">Asesor de móviles</div><div class="head-sub">Codex consulta este dataset local</div></div><div class="connection"><i></i><span id="codex-status">Comprobando…</span></div><button class="new-chat" id="new-chat">↻ Nuevo chat</button></div>
+            <div class="messages" id="messages" aria-live="polite">
+              <div class="message assistant"><div class="message-icon">✳</div><div class="message-body"><div class="meta">Asesor · ahora</div><div class="bubble">¡Hola! Puedo comparar teléfonos y buscar especificaciones del archivo. ¿Qué quieres consultar?</div><div class="suggestions"><button>Compara los modelos iPhone 16 por precio en Estados Unidos</button><button>¿Qué modelos tienen batería de 5,000 mAh o más?</button></div></div></div>
+            </div>
+            <form class="composer" id="chat-form"><textarea id="chat-input" rows="1" maxlength="4000" placeholder="Pregunta sobre los móviles del dataset…" aria-label="Escribe una pregunta"></textarea><div class="compose-bottom"><span>La pregunta se procesa con tu sesión de Codex en este equipo.</span><button class="send" type="submit" aria-label="Enviar mensaje">↑</button></div></form>
+          </section>
+
+          <section class="card catalog-card" aria-labelledby="catalog-title">
+            <div class="catalog-head"><div><h3 id="catalog-title">Dataset de móviles</h3><p>Revisa los datos que consulta el agente</p></div><div class="count"><b id="count">—</b>registros</div></div>
+            <div class="filters"><input id="search" type="search" placeholder="Buscar modelo o especificación…" aria-label="Buscar en el dataset"><select id="brand" aria-label="Filtrar por marca"><option value="">Todas las marcas</option></select></div>
+            <div class="table-wrap"><table><thead id="thead"></thead><tbody id="tbody"><tr><td class="empty">Cargando CSV…</td></tr></tbody></table></div>
+            <div class="table-bottom"><span id="table-info">Cargando…</span><div class="pager"><button id="prev" aria-label="Página anterior">←</button><span id="page-info">1 / 1</span><button id="next" aria-label="Página siguiente">→</button></div></div>
+          </section>
+        </div>
+        <div class="download-strip"><p>¿Necesitas revisar el archivo completo? Descarga el CSV original para abrirlo en tu herramienta de hojas de cálculo.</p><a href="/api/download" download>Descargar Mobiles Dataset (2025).csv&nbsp; ↓</a></div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="shell footer"><span class="footer-brand">INN BI proposal · Asesor de móviles</span><span>Dataset: Mobiles Dataset (2025).csv · Precios de lanzamiento según el archivo.</span></footer>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const $=id=>document.getElementById(id),state={rows:[],columns:[],filtered:[],page:1,size:12,messages:[],busy:false};
+    const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const formatAnswer=v=>esc(v).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/`(.+?)`/g,'<code>$1</code>').replace(/\n/g,'<br>');
+    async function getJSON(path,options){const res=await fetch(path,options);const data=await res.json();if(!res.ok)throw new Error(data.error||'Error de conexión.');return data}
+    async function init(){try{const [health,data]=await Promise.all([getJSON('/api/health'),getJSON('/api/data')]);$('codex-status').textContent=health.codex.authenticated?'Codex listo':'Iniciar sesión';if(!health.codex.authenticated){$('status-line').textContent=health.codex.message+' Ejecuta `codex login` en una terminal.';$('status-line').classList.add('error')}else $('status-line').textContent=`Conectado · ${data.count.toLocaleString('es')} filas cargadas desde el CSV`;$('catalog-summary').textContent=`${data.count.toLocaleString('es')} registros · CSV original`;
+      state.rows=data.rows;state.columns=data.columns;$('count').textContent=data.count.toLocaleString('es');const projectRows=$('project-rows');if(projectRows){$('project-rows').textContent=data.count.toLocaleString('es');$('project-columns').textContent=data.columns.length.toLocaleString('es');const uniqueBrands=new Set(state.rows.map(r=>r['Company Name']).filter(Boolean));$('project-brands').textContent=uniqueBrands.size.toLocaleString('es');const years=state.rows.map(r=>Number.parseInt(r['Launched Year'],10)).filter(Number.isFinite);$('project-years').textContent=years.length?`${Math.min(...years)}-${Math.max(...years)}`:'-';}const brands=[...new Set(state.rows.map(r=>r['Company Name']).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));$('brand').insertAdjacentHTML('beforeend',brands.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join(''));$('thead').innerHTML=`<tr>${state.columns.map(c=>`<th>${esc(c)}</th>`).join('')}</tr>`;filterRows();
+    }catch(error){$('codex-status').textContent='Servidor desconectado';$('status-line').textContent=error.message;$('status-line').classList.add('error');$('tbody').innerHTML=`<tr><td class="empty">${esc(error.message)}<br>Inicia server.py y recarga la página.</td></tr>`}}
+    function filterRows(){const q=$('search').value.trim().toLocaleLowerCase(),brand=$('brand').value;state.filtered=state.rows.filter(r=>(!brand||r['Company Name']===brand)&&(!q||Object.values(r).some(v=>String(v).toLocaleLowerCase().includes(q))));state.page=1;renderTable()}
+    function renderTable(){const pages=Math.max(1,Math.ceil(state.filtered.length/state.size));state.page=Math.min(state.page,pages);const start=(state.page-1)*state.size,shown=state.filtered.slice(start,start+state.size);$('tbody').innerHTML=shown.length?shown.map(r=>`<tr>${state.columns.map(c=>`<td>${esc(r[c])}</td>`).join('')}</tr>`).join(''):`<tr><td class="empty" colspan="${state.columns.length||1}">No se encontraron modelos.</td></tr>`;$('table-info').textContent=state.filtered.length?`${start+1}–${Math.min(start+state.size,state.filtered.length)} de ${state.filtered.length}`:'0 registros';$('page-info').textContent=`${state.page} / ${pages}`;$('prev').disabled=state.page<=1;$('next').disabled=state.page>=pages}
+    function addMessage(role,text){const user=role==='user',when=new Intl.DateTimeFormat('es',{hour:'2-digit',minute:'2-digit'}).format(new Date());$('messages').insertAdjacentHTML('beforeend',`<div class="message ${user?'user':'assistant'}"><div class="message-icon">${user?'U':'✳'}</div><div class="message-body"><div class="meta">${user?'Tú':'Asesor'} · ${when}</div><div class="bubble">${user?esc(text):formatAnswer(text)}</div></div></div>`);$('messages').scrollTop=$('messages').scrollHeight}
+    async function send(text){if(state.busy||!text.trim())return;document.querySelector('.suggestions')?.remove();state.messages.push({role:'user',content:text.trim()});addMessage('user',text.trim());state.busy=true;$('chat-input').disabled=true;$('chat-form').querySelector('button').disabled=true;$('messages').insertAdjacentHTML('beforeend','<div class="thinking" id="thinking">Codex está consultando el catálogo…</div>');$('messages').scrollTop=$('messages').scrollHeight;try{const data=await getJSON('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:state.messages})});state.messages.push({role:'assistant',content:data.answer});$('thinking')?.remove();addMessage('assistant',data.answer)}catch(error){$('thinking')?.remove();addMessage('assistant',error.message);state.messages.pop()}finally{state.busy=false;$('chat-input').disabled=false;$('chat-form').querySelector('button').disabled=false;$('chat-input').focus()}}
+    $('chat-form').addEventListener('submit',e=>{e.preventDefault();const el=$('chat-input'),value=el.value;el.value='';el.style.height='auto';send(value)});$('chat-input').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,90)+'px'});$('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('chat-form').requestSubmit()}});$('search').addEventListener('input',filterRows);$('brand').addEventListener('change',filterRows);$('prev').addEventListener('click',()=>{state.page--;renderTable()});$('next').addEventListener('click',()=>{state.page++;renderTable()});$('new-chat').addEventListener('click',()=>{state.messages=[];$('messages').innerHTML='<div class="message assistant"><div class="message-icon">✳</div><div class="message-body"><div class="meta">Asesor · ahora</div><div class="bubble">Conversación nueva. ¿Qué quieres consultar en el catálogo?</div></div></div>'});document.querySelectorAll('.suggestions button,.example').forEach(button=>button.addEventListener('click',()=>{document.querySelector('.suggestions')?.remove();document.querySelector('#home').scrollIntoView({behavior:'smooth'});send(button.dataset.question||button.textContent.trim())}));
+    init();const preset=new URLSearchParams(location.search).get('ask');if(preset){$('chat-input').value=preset;document.querySelector('#chat-panel').scrollIntoView({behavior:'smooth'})}
+  </script>
+  <script>
+    (()=>{
+      const previousAddMessage=window.addMessage;
+      const makeSuggestions=body=>{
+        body.querySelector('.suggestions')?.remove();
+        const query=[...state.messages].reverse().find(message=>message.role==='user')?.content?.toLocaleLowerCase()||'';
+        const brands=[...new Set(state.rows.map(row=>row['Company Name']).filter(Boolean))].sort((a,b)=>b.length-a.length);
+        const brand=brands.find(name=>query.includes(name.toLocaleLowerCase()));
+        const questions=[
+          brand?`¿Qué otros modelos de ${brand} aparecen en el catálogo?`:'Compara modelos por precio de lanzamiento y capacidad de batería.',
+          '¿Qué modelos destacan por pantalla, memoria RAM y cámaras?'
+        ];
+        const group=document.createElement('div');group.className='suggestions';group.setAttribute('aria-label','Preguntas sugeridas');
+        questions.forEach(question=>{const button=document.createElement('button');button.type='button';button.textContent=question;button.addEventListener('click',()=>window.send(question));group.append(button)});
+        body.append(group);
+      };
+      window.addMessage=(role,text)=>{previousAddMessage(role,text);if(role==='assistant'){const body=document.querySelector('#messages .message.assistant:last-child .message-body');if(body)makeSuggestions(body)}};
+      document.getElementById('new-chat')?.addEventListener('click',()=>setTimeout(()=>{const body=document.querySelector('#messages .message.assistant:last-child .message-body');if(body)makeSuggestions(body)},0));
+    })();
+  </script>
+</body>
+</html>
