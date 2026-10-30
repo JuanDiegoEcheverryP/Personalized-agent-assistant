@@ -10,12 +10,14 @@
     .navbar{background:rgba(242,242,240,.76);box-shadow:0 7px 25px rgba(26,26,28,.12);border-bottom:1px solid rgba(167,169,174,.35)}
     .hero-card{background:linear-gradient(118deg,rgba(75,74,143,.97),rgba(75,74,143,.9) 61%,rgba(89,111,166,.87));box-shadow:0 17px 45px rgba(75,74,143,.17)}
     .chat-card{background:rgba(255,255,255,.58);backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%);border-color:rgba(255,255,255,.82)}
-    .chat-card .card-head{background:rgba(255,255,255,.3);border-bottom-color:rgba(255,255,255,.58)}
+    .chat-card .card-head{background:rgba(255, 255, 255, 0.9);border-bottom-color:rgba(255,255,255,.58)}
     .chat-card .bubble{background:rgba(255,255,255,.88);color:#1a1a1c;border-color:rgba(167,169,174,.32)}
     .chat-card .message.user .bubble{background:rgba(169,201,232,.56);color:#17191d;border-color:rgba(75,74,143,.13)}
     .chat-card .composer{background:rgba(255,255,255,.78);border-color:rgba(167,169,174,.48)}
     .chat-card .composer textarea{color:#1a1a1c}
-    .catalog-card,.about-panel,.faq-list details{background:rgba(255,255,255,.79);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px)}
+    .catalog-card,.about-panel,.faq-list details{background:rgba(255,255,255,.79);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);    border-color: #8583ec !important;
+    border-width: 2px;
+    box-shadow: #777 0px 2px 5px;}
     .project-section .section-heading,.faq-section .section-heading{justify-content:center;text-align:center}
     .project-section .section-heading p,.faq-section .section-heading p{max-width:660px;margin-left:auto;margin-right:auto}
     .project-overview{max-width:940px;margin:0 auto 17px;text-align:center}
@@ -54,9 +56,8 @@
 /* Stronger palette, expressive contours and refreshed typography */
 .navbar{background:rgba(242,242,240,.68);border-bottom:1px solid rgba(75,74,143,.28);box-shadow:0 10px 30px rgba(39,37,83,.17)}
 .card,.about-panel,.faq-list,.project-stat,.process-card,.schema-item,.example{border-color:rgba(75,74,143,.24);border-radius:5px}
-.card-head{border-bottom:1px dashed rgba(75,74,143,.24)}
-.chat-card{border:1px solid rgba(75,74,143,.32)}
-.chat-card .card-head{border-bottom:1px dashed rgba(75,74,143,.25);border-radius:5px}
+.chat-card{border-color: #8583ec;border-width: 2px; box-shadow: #777 0px 2px 5px;}
+.chat-card .card-head{border-bottom:1px rgba(75,74,143,.25);border-radius:5px}
 .chat-card .bubble{border-color:rgba(75,74,143,.2);border-radius:5px}
 .chat-card .message.user .bubble{border-color:rgba(75,74,143,.28);border-radius:5px}
 .chat-card .composer{border-radius:5pxx}
@@ -88,6 +89,6 @@ body,button,input,select,textarea{font-family:"SamsungOne","Samsung Sans","One U
 h1,h2,h3,.wordmark,.head-title,.catalog-head h3,.faq-list summary,.project-stat b,.process-card .num,.schema-title{font-family:"SamsungOne","Samsung Sans","One UI Sans","Roboto","Segoe UI",Arial,sans-serif}
 
 /* Slightly richer ambient colors with a slow, low-motion drift. */
-body{background-image:radial-gradient(ellipse at 7% 4%,rgba(169,201,232,.84),transparent 34%),radial-gradient(ellipse at 93% 30%,rgba(217,178,160,.66),transparent 32%),radial-gradient(ellipse at 50% 86%,rgba(75,74,143,.3),transparent 40%),linear-gradient(132deg,#dcd9ef 0%,#f0e4e0 48%,#d3e3f2 100%);background-size:140% 140%,140% 140%,140% 140%,100% 100%;background-position:0% 0%,100% 15%,50% 100%,0 0;background-attachment:fixed;animation:ambient-drift 28s ease-in-out infinite alternate}
+body{background-image:radial-gradient(ellipse at 7% 4%,rgba(169,201,232,.84),transparent 34%);background-size:140% 140%,140% 140%,140% 140%,100% 100%;background-position:0% 0%,100% 15%,50% 100%,0 0;background-attachment:fixed;animation:ambient-drift 28s ease-in-out infinite alternate}
 @keyframes ambient-drift{from{background-position:0% 0%,100% 15%,50% 100%,0 0}to{background-position:12% 8%,86% 28%,58% 82%,0 0}}
 @media(prefers-reduced-motion:reduce){body{animation:none;background-position:0% 0%,100% 15%,50% 100%,0 0}}
