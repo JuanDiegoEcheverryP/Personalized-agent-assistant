@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f2f2f0">
+  <link rel="icon" type="image/png" href="/assets/face-inn.png?v=20261030-2">
   <title>INN BI proposal · Asesor de móviles</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,21 +29,19 @@
       <div class="hero">
         <div class="hero-card">
           <div class="hero-copy">
-            <div class="hero-tag">Inteligencia para elegir mejor</div>
-            <h1>Tu próxima decisión móvil, con datos a la vista.</h1>
-            <p>Consulta el catálogo con Codex, compara especificaciones y revisa la fuente original en la misma página.</p>
+            <h1>MX Chatbot Assistant Proposal</h1>
+            <p>Prueba de concepto de portal web de para chatbot de información de especificaciones de MX a partir de dataset.</p>
             <div class="hero-actions">
-              <a class="button primary" href="#chat-panel">Preguntar al agente <span aria-hidden="true">↓</span></a>
               <a class="button secondary" href="/api/download" download>Descargar dataset <span aria-hidden="true">↓</span></a>
             </div>
           </div>
-          <img class="hero-art" src="/assets/robot-mascot.png" alt="Mascota robot sosteniendo un teléfono mientras lo carga">
+          <img class="hero-art" src="/assets/robot-mascot.png?v=20261030-2" alt="Mascota robot de INN BI">
         </div>
       </div>
 
       <section class="section" aria-labelledby="home-title">
         <div class="section-heading">
-          <div><div class="section-kicker">Workspace · Catálogo conectado</div><h2 id="home-title">Explora y pregunta</h2><p>El asesor y la tabla usan el mismo archivo de datos para que puedas contrastar cada respuesta.</p></div>
+          <div><h2 id="home-title">MX Chatbot (Codex CLI)</h2></div>
           <div class="section-note" id="catalog-summary">Cargando catálogo…</div>
         </div>
         <div class="status-line" id="status-line">Conectando con server.py…</div>
@@ -62,7 +61,6 @@
             <div class="table-bottom"><span id="table-info">Cargando…</span><div class="pager"><button id="prev" aria-label="Página anterior">←</button><span id="page-info">1 / 1</span><button id="next" aria-label="Página siguiente">→</button></div></div>
           </section>
         </div>
-        <div class="download-strip"><p>¿Necesitas revisar el archivo completo? Descarga el CSV original para abrirlo en tu herramienta de hojas de cálculo.</p><a href="/api/download" download>Descargar Mobiles Dataset (2025).csv&nbsp; ↓</a></div>
       </section>
     </section>
   </main>
@@ -75,7 +73,7 @@
     const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const formatAnswer=v=>esc(v).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/`(.+?)`/g,'<code>$1</code>').replace(/\n/g,'<br>');
     async function getJSON(path,options){const res=await fetch(path,options);const data=await res.json();if(!res.ok)throw new Error(data.error||'Error de conexión.');return data}
-    async function init(){try{const [health,data]=await Promise.all([getJSON('/api/health'),getJSON('/api/data')]);$('codex-status').textContent=health.codex.authenticated?'Codex listo':'Iniciar sesión';if(!health.codex.authenticated){$('status-line').textContent=health.codex.message+' Ejecuta `codex login` en una terminal.';$('status-line').classList.add('error')}else $('status-line').textContent=`Conectado · ${data.count.toLocaleString('es')} filas cargadas desde el CSV`;$('catalog-summary').textContent=`${data.count.toLocaleString('es')} registros · CSV original`;
+    async function init(){try{const [health,data]=await Promise.all([getJSON('/api/health'),getJSON('/api/data')]);$('codex-status').textContent=health.codex.authenticated?'Codex funcionando':'Iniciar sesión';if(!health.codex.authenticated){$('status-line').textContent=health.codex.message+' Ejecuta `codex login` en una terminal.';$('status-line').classList.add('error')}else $('status-line').textContent=`Conectado · ${data.count.toLocaleString('es')} filas cargadas desde el CSV`;$('catalog-summary').textContent=`${data.count.toLocaleString('es')} registros · CSV original`;
       state.rows=data.rows;state.columns=data.columns;$('count').textContent=data.count.toLocaleString('es');const projectRows=$('project-rows');if(projectRows){$('project-rows').textContent=data.count.toLocaleString('es');$('project-columns').textContent=data.columns.length.toLocaleString('es');const uniqueBrands=new Set(state.rows.map(r=>r['Company Name']).filter(Boolean));$('project-brands').textContent=uniqueBrands.size.toLocaleString('es');const years=state.rows.map(r=>Number.parseInt(r['Launched Year'],10)).filter(Number.isFinite);$('project-years').textContent=years.length?`${Math.min(...years)}-${Math.max(...years)}`:'-';}const brands=[...new Set(state.rows.map(r=>r['Company Name']).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));$('brand').insertAdjacentHTML('beforeend',brands.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join(''));$('thead').innerHTML=`<tr>${state.columns.map(c=>`<th>${esc(c)}</th>`).join('')}</tr>`;filterRows();
     }catch(error){$('codex-status').textContent='Servidor desconectado';$('status-line').textContent=error.message;$('status-line').classList.add('error');$('tbody').innerHTML=`<tr><td class="empty">${esc(error.message)}<br>Inicia server.py y recarga la página.</td></tr>`}}
     function filterRows(){const q=$('search').value.trim().toLocaleLowerCase(),brand=$('brand').value;state.filtered=state.rows.filter(r=>(!brand||r['Company Name']===brand)&&(!q||Object.values(r).some(v=>String(v).toLocaleLowerCase().includes(q))));state.page=1;renderTable()}

@@ -18,8 +18,8 @@ CSV_FILE = ROOT / "Mobiles Dataset (2025).csv"
 HTML_FILE = ROOT / "index.html"
 ASSETS_DIR = ROOT / "UXUI reference"
 ASSETS = {
-    "/assets/robot-mascot.png": ("Mascota robot cargando su teléfonos.png", "image/png"),
-    "/assets/face.png": ("face.png", "image/png"),
+    "/assets/robot-mascot.png": ("Mascota robot.png", "image/png"),
+    "/assets/face-inn.png": ("face_INN.png", "image/png"),
     "/assets/samsung-wordmark.jpg": ("samsung-logo.jpg", "image/jpeg"),
 }
 PAGE_FILES = {
@@ -199,7 +199,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", content_type)
             self.send_header("Content-Length", str(len(body)))
-            self.send_header("Cache-Control", "public, max-age=3600")
+            self.send_header("Cache-Control", "no-store")
             self.end_headers()
             self.wfile.write(body)
             return

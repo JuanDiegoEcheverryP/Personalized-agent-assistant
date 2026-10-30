@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f2f2f0">
+  <link rel="icon" type="image/png" href="/assets/face-inn.png?v=20261030-2">
   <title>INN BI proposal · Asesor de móviles</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,18 +25,10 @@
   </header>
 <main>
 <section class="shell section project-section" id="proyecto">
-      <div class="section-heading"><div><div class="section-kicker">Sobre el proyecto</div><h2>Un asesor transparente, con la fuente a la vista</h2><p>INN BI proposal conecta una interfaz de consulta con Codex y un catálogo de equipos móviles. Esta sección documenta la procedencia, el alcance y la estructura de los datos.</p></div></div>
+      <div class="section-heading"><div><h2>Acerca del proyecto</h2><p>La propuesta conecta una interfaz de consulta con Codex y un catálogo de MX que parte de un dataset de celulares. Esta sección documenta la procedencia, el alcance y la estructura de los datos.</p></div></div>
       <div class="project-overview">
-        <p>El agente usa las instrucciones de este proyecto y consulta el CSV local antes de responder preguntas factuales. Puede localizar equipos, ordenar criterios de comparación y explicar qué filas y campos respaldan una respuesta. La tabla de Home permite revisar esos mismos valores y descargar el archivo original.</p>
-        <p>La colección incluye teléfonos y algunos dispositivos móviles de otras formas, con variantes de almacenamiento o modelo representadas en registros separados. Los precios están expresados como importes de lanzamiento por mercado; no constituyen precios de venta actuales.</p>
-        <div class="project-source"><span>Fuente consultada:</span><strong>Mobile Phones Dataset · Kaggle · cuenta <code>ranaghulamnabi</code></strong><a href="https://www.kaggle.com/datasets/ranaghulamnabi/mobile-phones-dataset" target="_blank" rel="noopener noreferrer">Abrir ficha de Kaggle ↗</a></div>
-      </div>
-      <div class="project-stats" aria-label="Resumen del dataset">
-        <div class="project-stat"><span>Registros del archivo</span><b id="project-rows">—</b></div>
-        <div class="project-stat"><span>Columnas</span><b id="project-columns">15</b></div>
-        <div class="project-stat"><span>Marcas distintas</span><b id="project-brands">—</b></div>
-        <div class="project-stat"><span>Años registrados</span><b id="project-years">—</b></div>
-        <div class="project-stat"><span>Precios por mercado</span><b>5 monedas</b></div>
+        <p>El agente usa las instrucciones de este proyecto y consulta el CSV local antes de responder. Puede localizar equipos, ordenar criterios de comparación y explicar qué filas y campos respaldan una respuesta. La colección incluye teléfonos y algunos dispositivos móviles de otras formas, con variantes de almacenamiento o modelo representadas en registros separados. Los precios están expresados como importes de lanzamiento por mercado; no constituyen precios de venta actuales.</p>
+        <div class="project-source"><span>Fuente consultada:</span><a href="https://www.kaggle.com/datasets/ranaghulamnabi/mobile-phones-dataset" target="_blank" rel="noopener noreferrer">Abrir ficha de Kaggle ↗</a></div>
       </div>
 
       <div class="process-timeline">
@@ -46,10 +39,9 @@
       </div>
 
       <div class="source-detail"><strong>Cómo leer la tabla:</strong> las columnas de medidas y precios aparecen como texto formateado en el CSV. Algunas cifras llevan separadores de miles; cámaras y pantallas plegables pueden incluir más de una medida por fila. Al filtrar o calcular, conviene revisar la unidad y el formato exacto de cada registro.</div>
-      <div class="source-detail"><strong>Alcance de la fuente:</strong> el enlace de Kaggle lleva a la ficha original; el agente responde desde la copia local incluida aquí. Si la ficha cambia, este proyecto no actualiza automáticamente el CSV.</div>
+
 
       <h3 class="schema-title">Diccionario de datos</h3>
-      <p class="schema-caption">Tipo describe el contenido lógico; el CSV puede guardar medidas cuantitativas como texto con unidades.</p>
       <div class="schema-table-wrap"><table class="schema-table">
         <thead><tr><th>Columna del CSV</th><th>Tipo de dato</th><th>Medida / formato</th><th>Descripción general</th></tr></thead>
         <tbody>
@@ -70,13 +62,6 @@
           <tr><td>Launched Year</td><td>Temporal · entero</td><td>Año calendario</td><td>Año de lanzamiento registrado como número entero.</td></tr>
         </tbody>
       </table></div>
-
-      <h3 class="schema-title">Preguntas para empezar</h3>
-      <div class="examples">
-        <button class="example" data-question="Compara los modelos iPhone 16 del catálogo por precio de lanzamiento en Estados Unidos."><span>COMPARAR</span>Modelos iPhone 16 por precio en Estados Unidos</button>
-        <button class="example" data-question="¿Qué modelos del dataset tienen una batería de 5,000 mAh o más? Indica la capacidad exacta."><span>FILTRAR</span>Equipos con batería de 5,000 mAh o más</button>
-        <button class="example" data-question="Busca opciones con 8GB de RAM y pantalla de más de 6.5 inches. Cita los modelos y valores del CSV."><span>ENCONTRAR</span>8 GB de RAM y pantalla mayor a 6.5 pulgadas</button>
-      </div>
     </section>
 </main>
 <footer class="shell footer"><span class="footer-brand">INN BI proposal · Asesor de móviles</span><span>Dataset: Mobiles Dataset (2025).csv · Precios de lanzamiento según el archivo.</span></footer>

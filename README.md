@@ -24,7 +24,7 @@ El servidor escucha solo en `127.0.0.1`. La página y Codex deben ejecutarse en 
 - **Sobre el proyecto** (`/proyecto.html`): procedencia, estadísticas del archivo, rol y límites del agente, diccionario tabular de las 15 columnas y ejemplos pulsables.
 - **FAQ** (`/faq.html`): respuestas sobre origen, esquema, unidades, precios, vigencia y uso local.
 
-Las páginas comparten `site.css` y navegan entre sí mediante la barra superior. La imagen `UXUI reference/face.png` se usa como avatar del agente; la mascota de cuerpo completo aparece en el hero de Home.
+Las páginas comparten `site.css` y navegan entre sí mediante la barra superior. La imagen `UXUI reference/face_INN.png` se usa como avatar y favicon; `UXUI reference/Mascota robot.png` aparece en el hero de Home.
 
 ## Fuente y datos
 
